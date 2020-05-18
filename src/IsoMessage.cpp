@@ -28,8 +28,6 @@ void IsoMessage::generateIsoMessage(std::string& hexMessage) const
     hexMessage += std::to_string( _mtiVersion );
     hexMessage += std::to_string( _mti );
 
-    std::cout << _bitmap[0].toHex() << std::endl;
-
     hexMessage = ToHex(hexMessage);
     hexMessage.insert(0, _header);
 
