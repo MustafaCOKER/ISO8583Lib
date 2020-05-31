@@ -2,6 +2,10 @@
 #define ISOMESSAGEFIELDBASE_H
 
 #include <string>
+#include <functional>
+
+using std::string;
+using std::function;
 
 class IsoMessageFieldBase
 {
@@ -17,7 +21,7 @@ class IsoMessageFieldBase
 
     protected:
         const std::string _fieldSpecialName;
-        std::function<string(string)> _formatter;
+        function<string(string)> _formatter;
 
 };
 

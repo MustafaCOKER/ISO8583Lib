@@ -5,6 +5,11 @@
 #include <iomanip>
 
 #include "IsoMessage.h"
+#include "Util.h"
+
+using std::shared_ptr;
+using std::cout;
+using std::endl;
 
 IsoMessage::IsoMessage(std::string header, int mti, int mtiVersion)
     :_header(header), _mti(mti), _mtiVersion(mtiVersion)
@@ -45,12 +50,16 @@ void IsoMessage::parseIsoMessage(const std::string& hexMessage)
 
 }
 
-void IsoMessage::setField(int index, int field)
+bool IsoMessage::setField(int index, int field)
 {
-    std::shared_ptr<IsoMessageField<int, 255> > isoField(new IsoMessageField<int, 255>(field, "Stan"));
+    if (Util::in<int>(index, {1, 65}))
+        return false;
+
+    shared_ptr<IsoMessageField<int, 255> > isoField(new IsoMessageField<int, 255>(field, "Stan"));
 
     _fields.insert( std::pair<int, std::shared_ptr<IsoMessageFieldBase> >(index, isoField) );
 
-    _bitmap[ index / 64 ].set(index % 64);
+    _bitmap[ index / 64 ].set( index % 64 );
 
+    return true;
 }

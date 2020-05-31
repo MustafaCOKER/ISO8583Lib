@@ -19,7 +19,7 @@ class IsoMessage
         void generateIsoMessage(std::string& hexMessage) const;
         void parseIsoMessage(const std::string& hexMessage);
 
-        void setField(int index, int field);
+        bool setField(int index, int field);
 
         virtual ~IsoMessage() = default;
 
@@ -27,7 +27,7 @@ class IsoMessage
         std::map<int, std::shared_ptr<IsoMessageFieldBase> > _fields;
         int _mti{0};
         int _mtiVersion {static_cast<int>(Types::IsoTypes::_1987)};
-        std::string _header;
+        std::string _header { "" };
         std::array<Bitmap, 3> _bitmap;
 };
 

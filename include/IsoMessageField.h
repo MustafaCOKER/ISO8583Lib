@@ -3,6 +3,9 @@
 
 #include <string>
 
+using std::string;
+using std::to_string;
+
 #include "IsoMessageFieldBase.h"
 
 template<class T, size_t maxSize>
@@ -15,7 +18,7 @@ class IsoMessageField: public IsoMessageFieldBase
         void set(T val);
         T get(void);
 
-        virtual const std::string getName() const;
+        virtual string getField() override;
 
         virtual ~IsoMessageField();
 
@@ -51,9 +54,9 @@ T IsoMessageField<T, maxSize>::get(void)
 }
 
 template<class T, size_t maxSize>
-const std::string IsoMessageField<T, maxSize>::getName() const
+string IsoMessageField<T, maxSize>::getField()
 {
-    return _fieldSpecialName;
+    return _formatter( to_string(_value) );
 }
 
 template<class T, size_t maxSize>
