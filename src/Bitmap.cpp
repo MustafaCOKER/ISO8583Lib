@@ -5,6 +5,12 @@
 #include "Bitmap.h"
 #include "Util.h"
 
+#define CHECK_DECREMENT_INDEX                                               \
+    if (index < 1 || index > 64)                                            \
+        throw std::out_of_range("index number must be under the 64-1");     \
+                                                                            \
+    --index;
+
 Bitmap::Bitmap()
 {
     this->clear();
@@ -30,17 +36,30 @@ void Bitmap::printBits() const
 
 void Bitmap::set(int index)
 {
-    _bitmap[index/8] |= (0x01 << ( 8 - index%8 ) );
+    CHECK_DECREMENT_INDEX;
+
+    _bitmap[index/8] |= (0x01 << ( 7 - index%8 ) );
+}
+
+void Bitmap::unset(int index)
+{
+    CHECK_DECREMENT_INDEX;
+
+    _bitmap[index/8] &= ( 0x01 << ( 7 - index%8 )) ^ 0xFF;
 }
 
 bool Bitmap::get(int index) const
 {
-    return _bitmap[index/8] & (0x01 << ( 8- index%8 ) );
+    CHECK_DECREMENT_INDEX;
+
+    return _bitmap[index/8] & (0x01 << ( 7 - index%8 ) );
 }
 
 void Bitmap::flip(int index)
 {
-    _bitmap[index/8] ^= (0x01 << index%8);
+    CHECK_DECREMENT_INDEX;
+
+    _bitmap[index/8] ^= ( (0x01 << ( 7 - index%8 )));
 }
 
 std::string Bitmap::toHex(void) const
@@ -52,9 +71,4 @@ std::string Bitmap::toHex(void) const
         ss << Util::uchar2hex( item );
 
     return ss.str();
-}
-
-Bitmap::~Bitmap()
-{
-    //dtor
 }

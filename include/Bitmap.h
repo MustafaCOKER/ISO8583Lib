@@ -7,9 +7,10 @@ class Bitmap
 {
     public:
         Bitmap();
-        ~Bitmap();
+        ~Bitmap() = default;
 
         void set(int index);
+        void unset(int index);
         bool get(int index) const;
         void flip(int index);
         std::string toHex( void ) const;

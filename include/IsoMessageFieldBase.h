@@ -9,12 +9,16 @@ class IsoMessageFieldBase
         IsoMessageFieldBase();
         IsoMessageFieldBase(std::string sName);
 
-        virtual const std::string getName() const = 0;
+        inline std::string getName() const { return _fieldSpecialName; };
+
+        virtual string getField() = 0;
 
         virtual ~IsoMessageFieldBase();
 
     protected:
         const std::string _fieldSpecialName;
+        std::function<string(string)> _formatter;
+
 };
 
 #endif // ISOMESSAGEFIELDBASE_H
