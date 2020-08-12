@@ -63,8 +63,8 @@ BOOST_AUTO_TEST_CASE( BitmapTestSuit )
     BOOST_REQUIRE( bitMaptest.toHex().compare("0000000000000000") == 0 );
 
     bitMaptest.set(3);
-    bitMaptest.set(5);  // would be flipped
-    bitMaptest.set(14); // would be flipped
+    bitMaptest.set(5);  // would be flipped a few lines later
+    bitMaptest.set(14); // would be flipped a few lines later
     bitMaptest.set(26);
     bitMaptest.set(39);
 

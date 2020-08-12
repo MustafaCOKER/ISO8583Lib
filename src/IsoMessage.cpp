@@ -8,8 +8,6 @@
 #include "Util.h"
 
 using std::shared_ptr;
-using std::cout;
-using std::endl;
 
 IsoMessage::IsoMessage(std::string header, int mti, int mtiVersion)
     :_header(header), _mti(mti), _mtiVersion(mtiVersion)
@@ -55,7 +53,7 @@ bool IsoMessage::setField(int index, int field)
     if (Util::in<int>(index, {1, 65}))
         return false;
 
-    shared_ptr<IsoMessageField<int, 255> > isoField(new IsoMessageField<int, 255>(field, "Stan"));
+    std::shared_ptr<IsoMessageField<int, 255> > isoField(new IsoMessageField<int, 255>(field, "Stan"));
 
     _fields.insert( std::pair<int, std::shared_ptr<IsoMessageFieldBase> >(index, isoField) );
 
